@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edition – Wien, ÖNB Cod. 5206</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="edition-page">
+
+    <header>
+        <nav>
+            <a href="index.html">Startseite</a>
+            <a href="edition.html">Edition</a>
+        </nav>
+        <h1>Wien, ÖNB Cod. 5206</h1>
+    </header>
+
+    <main>
+
+        <div id="edition-controls">
+
+            <div id="page-navigation">
+                <button id="btn-prev" type="button">&#8249; Zurück</button>
+                <span id="current-folio">fol. 81r</span>
+                <button id="btn-next" type="button">Weiter &#8250;</button>
+            </div>
+
+            <div id="transcription-toggle">
+                <button id="btn-diplomatic" type="button" class="active">Diplomatisch</button>
+                <button id="btn-normalized" type="button">Normalisiert</button>
+            </div>
+
+        </div>
+
+        <div id="edition-view">
+
+            <div id="facsimile-panel">
+                <img id="facsimile-image" src="" alt="Faksimile fol. 81r">
+            </div>
+
+            <div id="transcription-panel">
+                <!-- Wird per JavaScript aus der TEI-XML-Datei befüllt -->
+                <!-- Jeder <div>-Abschnitt aus dem XML wird hier als Element dargestellt -->
+                <!-- Das data-type-Attribut trägt die Rechenart, data-section den Abschnittstyp -->
+                <!-- Beispiel der späteren Struktur:
+                <div class="text-section" data-type="fraction_calculation" data-section="outline">
+                    <p>Von brochnn stucken ...</p>
+                </div>
+                <div class="text-section" data-type="fraction_calculation" data-section="reckoning_example">
+                    <p>Nu wart was ...</p>
+                </div>
+                -->
+            </div>
+
+        </div>
+
+        <div id="tooltip" role="tooltip" hidden>
+            <span id="tooltip-type"></span>
+            <span id="tooltip-section"></span>
+        </div>
+
+    </main>
+
+    <footer>
+        <p>Edition im Rahmen eines Universitätskurses. Nicht zur öffentlichen Verbreitung bestimmt.</p>
+    </footer>
+
+    <script src="js/main.js"></script>
+</body>
+</html>

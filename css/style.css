@@ -1,0 +1,398 @@
+/* ============================================================
+   SCHRIFTEN (Google Fonts)
+   Cinzel: Überschriften (römisch-historisch)
+   Crimson Text: Fließtext (elegant, lesbar)
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
+/* ============================================================
+   CSS-VARIABLEN: Farbschema
+   ============================================================ */
+:root {
+    --color-bg:         #f5ead8; /* Pergamentton */
+    --color-text:       #2c1a0e; /* Tintenbraun */
+    --color-accent:     #8b1a1a; /* Dunkelrot (Rubrizierung) */
+    --color-secondary:  #e8d5b0; /* Helles Beige */
+    --color-border:     #c4a882; /* Mittleres Braun für Ränder */
+    --color-tooltip-bg: rgba(61, 36, 9, 0.93);
+    --color-tooltip-text: #f5ead8;
+
+    --font-heading: 'Cinzel', 'Georgia', serif;
+    --font-body:    'Crimson Text', 'Georgia', serif;
+}
+
+/* ============================================================
+   RESET & BASIS
+   ============================================================ */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--color-bg);
+    color: var(--color-text);
+    font-family: var(--font-body);
+    font-size: 1.125rem;
+    line-height: 1.7;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ============================================================
+   HEADER & NAVIGATION
+   ============================================================ */
+header {
+    background-color: var(--color-text);
+    color: var(--color-bg);
+    padding: 1.5rem 2rem;
+    border-bottom: 3px solid var(--color-accent);
+}
+
+nav {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+nav a {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-secondary);
+    text-decoration: none;
+}
+
+nav a:hover {
+    color: var(--color-bg);
+    text-decoration: underline;
+}
+
+header h1 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--color-bg);
+    margin-bottom: 0.25rem;
+}
+
+header p {
+    font-size: 0.95rem;
+    color: var(--color-secondary);
+    font-style: italic;
+}
+
+/* ============================================================
+   MAIN & FOOTER
+   ============================================================ */
+main {
+    flex: 1;
+    padding: 2.5rem 2rem;
+    max-width: 960px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+/* Editionsansicht braucht die volle Breite */
+body.edition-page main {
+    max-width: 100%;
+    padding: 1.5rem;
+}
+
+footer {
+    background-color: var(--color-text);
+    color: var(--color-secondary);
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 1rem 2rem;
+    border-top: 3px solid var(--color-accent);
+}
+
+/* ============================================================
+   STARTSEITE
+   ============================================================ */
+#intro,
+#manuscript-info,
+#links {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+}
+
+h2 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    margin-bottom: 1rem;
+}
+
+#intro p {
+    margin-bottom: 0.75rem;
+}
+
+/* Tabelle: Handschriftdaten */
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    text-align: left;
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+}
+
+th {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--color-accent);
+    width: 30%;
+    white-space: nowrap;
+}
+
+tr:last-child th,
+tr:last-child td {
+    border-bottom: none;
+}
+
+/* Externe Links */
+#links ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+#links a {
+    color: var(--color-accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+#links a:hover {
+    text-decoration: underline;
+}
+
+/* Call-to-Action Button */
+#cta {
+    margin-top: 1rem;
+}
+
+#cta a {
+    display: inline-block;
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    font-family: var(--font-heading);
+    font-size: 0.9rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 0.75rem 2rem;
+    border: 2px solid var(--color-accent);
+    transition: background-color 0.2s, color 0.2s;
+}
+
+#cta a:hover {
+    background-color: transparent;
+    color: var(--color-accent);
+}
+
+/* ============================================================
+   EDITIONSANSICHT: STEUERLEISTE
+   ============================================================ */
+#edition-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 0;
+    margin-bottom: 1rem;
+    border-bottom: 2px solid var(--color-border);
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+/* Seitennavigation */
+#page-navigation {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+#current-folio {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    letter-spacing: 0.05em;
+    min-width: 6rem;
+    text-align: center;
+}
+
+/* Buttons (Vor/Zurück und Toggle) */
+button {
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    background-color: transparent;
+    color: var(--color-text);
+    border: 1px solid var(--color-border);
+    padding: 0.4rem 0.9rem;
+    cursor: pointer;
+    transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+}
+
+button:hover {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+}
+
+button:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+/* Toggle aktiver Zustand */
+#transcription-toggle {
+    display: flex;
+    gap: 0;
+}
+
+#transcription-toggle button {
+    border-radius: 0;
+}
+
+#transcription-toggle button.active {
+    background-color: var(--color-accent);
+    color: var(--color-bg);
+    border-color: var(--color-accent);
+}
+
+/* ============================================================
+   EDITIONSANSICHT: ZWEISPALTIGES LAYOUT
+   ============================================================ */
+#edition-view {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    height: calc(100vh - 220px); /* Höhe abzüglich Header, Controls, Footer */
+}
+
+/* Faksimile-Panel */
+#facsimile-panel {
+    overflow-y: auto;
+    border: 1px solid var(--color-border);
+    background-color: #1a1008;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 0.5rem;
+}
+
+#facsimile-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* Transkriptions-Panel */
+#transcription-panel {
+    overflow-y: auto;
+    padding: 1.25rem;
+    border: 1px solid var(--color-border);
+    background-color: #fdf6e8;
+    font-size: 1.05rem;
+    line-height: 1.8;
+}
+
+/* Textabschnitte aus dem XML */
+.text-section {
+    margin-bottom: 1.25rem;
+    padding: 0.5rem 0.75rem;
+    border-left: 3px solid transparent;
+    position: relative;
+    cursor: default;
+    transition: border-color 0.15s, background-color 0.15s;
+}
+
+.text-section:hover {
+    border-left-color: var(--color-accent);
+    background-color: rgba(139, 26, 26, 0.06);
+}
+
+/* Hervorhebungen aus dem XML (<hi rend="...">)  */
+.hi-heading {
+    font-family: var(--font-heading);
+    font-size: 1rem;
+    letter-spacing: 0.04em;
+    color: var(--color-accent);
+    display: block;
+    margin-bottom: 0.3rem;
+}
+
+.hi-initial {
+    font-size: 1.6em;
+    font-weight: 600;
+    float: left;
+    line-height: 1;
+    margin-right: 0.1em;
+    color: var(--color-accent);
+}
+
+.hi-superscript {
+    vertical-align: super;
+    font-size: 0.75em;
+}
+
+.hi-subscript {
+    vertical-align: sub;
+    font-size: 0.75em;
+}
+
+/* Unsichere Lesungen (<unclear>) */
+.unclear {
+    color: #888;
+    font-style: italic;
+}
+
+/* ============================================================
+   TOOLTIP
+   ============================================================ */
+#tooltip {
+    position: fixed;
+    background-color: var(--color-tooltip-bg);
+    color: var(--color-tooltip-text);
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+    padding: 0.5rem 0.85rem;
+    pointer-events: none;
+    z-index: 100;
+    max-width: 260px;
+    line-height: 1.5;
+}
+
+#tooltip[hidden] {
+    display: none;
+}
+
+#tooltip-type {
+    display: block;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+#tooltip-section {
+    display: block;
+    font-style: italic;
+    font-family: var(--font-body);
+    font-size: 0.85rem;
+    opacity: 0.85;
+}
