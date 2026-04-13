@@ -1,0 +1,10 @@
+# Journal – Wien, ÖNB Cod. 5206
+
+## 2026-04-13
+- Projektidee definiert: digitale Edition von Wien, ÖNB Cod. 5206 (spätmittelalterliches Arithmetik-Handbuch).
+- TEI-XML-Datei in `data/` abgelegt.
+- Phase 1 (Bestandsaufnahme) abgeschlossen: XML-Struktur analysiert, 29 Seiten, verschachtelte `<div>`-Elemente mit Rechenarten und Abschnittstypen.
+- Phase 2 (Exploration) abgeschlossen: Layout, Features und Designrichtung festgelegt.
+- Phase 3 (Destillieren) abgeschlossen: `requirements.md`, `data.md`, `visual-design.md`, `journal.md` erstellt.
+- Ordnerstruktur angelegt: `data/`, `data/img/`, `docs/`, `css/`, `js/`, `tutorial/`.
+- Bilder (29 JPGs) noch ausstehend, werden nachgereicht.
