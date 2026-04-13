@@ -89,14 +89,16 @@ async function init() {
 // ============================================================
 
 function buildPageList() {
-    // 1. Bildpfade aus <surface xml:id="IMAGE.N"> / <graphic url="..."> lesen
+    // 1. Bildpfade aus <graphic xml:id="IMAGE.N" url="..."> lesen
+    //    (xml:id liegt auf <graphic>, nicht auf <surface>)
     const imageMap = {};
-    const surfaces = xmlDoc.getElementsByTagNameNS('*', 'surface');
-    for (const surface of surfaces) {
-        const id = surface.getAttribute('xml:id');
-        const graphic = surface.getElementsByTagNameNS('*', 'graphic')[0];
-        if (id && graphic) {
-            imageMap[id] = graphic.getAttribute('url');
+    const graphics = xmlDoc.getElementsByTagNameNS('*', 'graphic');
+    for (const graphic of graphics) {
+        const id = graphic.getAttributeNS('http://www.w3.org/XML/1998/namespace', 'id')
+                || graphic.getAttribute('xml:id');
+        const url = graphic.getAttribute('url');
+        if (id && url) {
+            imageMap[id] = url;
         }
     }
 
@@ -109,7 +111,7 @@ function buildPageList() {
         const filename = imageId ? imageMap[imageId] : null;
         pages.push({
             folio,
-            imageUrl:  filename ? `data/img/${filename}` : null,
+            imageUrl:  filename ? `data/img/Wien_5206(frueher5296)/${filename}` : null,
             pbElement: pb,
         });
     }
