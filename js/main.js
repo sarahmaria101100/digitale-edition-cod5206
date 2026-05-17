@@ -90,7 +90,6 @@ async function init() {
 
 function buildPageList() {
     // 1. Bildpfade aus <graphic xml:id="IMAGE.N" url="..."> lesen
-    //    (xml:id liegt auf <graphic>, nicht auf <surface>)
     const imageMap = {};
     const graphics = xmlDoc.getElementsByTagNameNS('*', 'graphic');
     for (const graphic of graphics) {
@@ -124,10 +123,8 @@ function buildPageList() {
 function renderPage(index) {
     const page = pages[index];
 
-    // Folio-Anzeige aktualisieren
     folioDisplay.textContent = `fol. ${page.folio}`;
 
-    // Faksimile aktualisieren
     if (page.imageUrl) {
         facsimileImage.src = page.imageUrl;
         facsimileImage.alt = `Faksimile fol. ${page.folio}`;
@@ -136,7 +133,6 @@ function renderPage(index) {
         facsimileImage.alt = 'Bild noch nicht verfügbar';
     }
 
-    // Transkription rendern
     transcriptionPanel.innerHTML = '';
     const content = renderPageContent(index, currentMode);
     transcriptionPanel.appendChild(content);
@@ -153,23 +149,18 @@ function updateNavButtons() {
 // ============================================================
 // XML → HTML: SEITENINHALT
 // ============================================================
-// Wandelt den XML-Inhalt der aktuellen Seite in HTML um.
-// Die Funktion geht den gesamten XML-Baum durch und sammelt
-// dabei, welche Knoten auf die Zielseite (targetPage) gehören.
 
 function renderPageContent(targetPage, mode) {
     const container = document.createElement('div');
-    let currentPageIdx = -1; // -1 = vor der ersten <pb>
-    const divStack = [container]; // Stack der aktuellen HTML-div-Elemente
+    let currentPageIdx = -1;
+    const divStack = [container];
 
     function walk(xmlNode) {
-        // ---- Seitenumbruch: Seitenzähler erhöhen ----
         if (xmlNode.nodeType === Node.ELEMENT_NODE && xmlNode.localName === 'pb') {
             currentPageIdx++;
             return;
         }
 
-        // ---- <div>: immer traversieren (kann <pb> enthalten) ----
         if (xmlNode.nodeType === Node.ELEMENT_NODE && xmlNode.localName === 'div') {
             const type = xmlNode.getAttribute('type');
             const htmlDiv = document.createElement('div');
@@ -180,23 +171,19 @@ function renderPageContent(targetPage, mode) {
             divStack.push(htmlDiv);
             for (const child of xmlNode.childNodes) walk(child);
             divStack.pop();
-            // Nur anhängen, wenn Inhalt vorhanden (= Inhalt gehört zur Zielseite)
             if (htmlDiv.hasChildNodes()) {
                 divStack[divStack.length - 1].appendChild(htmlDiv);
             }
             return;
         }
 
-        // ---- Nur auf der Zielseite rendern ----
         if (currentPageIdx !== targetPage) {
-            // Trotzdem in Kinder gehen, um <pb>-Elemente zu zählen
             if (xmlNode.nodeType === Node.ELEMENT_NODE) {
                 for (const child of xmlNode.childNodes) walk(child);
             }
             return;
         }
 
-        // ---- Textknoten ----
         if (xmlNode.nodeType === Node.TEXT_NODE) {
             const text = xmlNode.textContent;
             if (text.trim()) {
@@ -205,7 +192,6 @@ function renderPageContent(targetPage, mode) {
             return;
         }
 
-        // ---- Alle anderen Elemente ----
         if (xmlNode.nodeType === Node.ELEMENT_NODE) {
             const rendered = renderElement(xmlNode, mode);
             if (rendered) divStack[divStack.length - 1].appendChild(rendered);
@@ -235,7 +221,6 @@ function renderElement(xmlNode, mode) {
         }
 
         case 'choice': {
-            // Wähle je nach Modus abbr (diplomatisch) oder expan (normalisiert)
             const targetTag = mode === 'diplomatic' ? 'abbr' : 'expan';
             const target = xmlNode.getElementsByTagNameNS('*', targetTag)[0];
             if (!target) return null;
@@ -253,11 +238,9 @@ function renderElement(xmlNode, mode) {
         }
 
         case 'lb':
-            // Zeilenumbruch
             return document.createElement('br');
 
         case 'rs': {
-            // Benannte Entität (Währung, Ware, Maß …)
             const span = document.createElement('span');
             span.classList.add('rs', `rs-${xmlNode.getAttribute('type')}`);
             renderChildren(xmlNode, span, mode);
@@ -272,14 +255,11 @@ function renderElement(xmlNode, mode) {
         }
 
         case 'g': {
-            // Sonderzeichen: Textinhalt ist das Unicode-Zeichen
             const text = xmlNode.textContent;
             return text ? document.createTextNode(text) : null;
         }
 
         case 'am': {
-            // Abbreviaturzeichen – nur in diplomatischer Darstellung sichtbar
-            // (in normalisiert: nie erreicht, da <choice> dann <expan> wählt)
             const span = document.createElement('span');
             span.className = 'am';
             renderChildren(xmlNode, span, mode);
@@ -287,7 +267,6 @@ function renderElement(xmlNode, mode) {
         }
 
         case 'span': {
-            // z.B. <span style="linebreaker">¬</span> (Zeilentrennzeichen)
             const span = document.createElement('span');
             renderChildren(xmlNode, span, mode);
             return span;
@@ -299,11 +278,9 @@ function renderElement(xmlNode, mode) {
         case 'surface':
         case 'graphic':
         case 'zone':
-            // Diese Elemente werden nicht als Text dargestellt
             return null;
 
         default: {
-            // Unbekannte Elemente: Kinder trotzdem rendern
             const span = document.createElement('span');
             renderChildren(xmlNode, span, mode);
             return span.hasChildNodes() ? span : null;
@@ -311,7 +288,6 @@ function renderElement(xmlNode, mode) {
     }
 }
 
-// Hilfsfunktion: alle Kindknoten eines XML-Elements in ein HTML-Element rendern
 function renderChildren(xmlNode, htmlParent, mode) {
     for (const child of xmlNode.childNodes) {
         if (child.nodeType === Node.TEXT_NODE) {
@@ -387,7 +363,6 @@ function showTooltip(event, element) {
 }
 
 function moveTooltip(event) {
-    // Tooltip 12px rechts und unterhalb des Mauszeigers positionieren
     tooltip.style.left = (event.clientX + 12) + 'px';
     tooltip.style.top  = (event.clientY + 12) + 'px';
 }
@@ -396,8 +371,6 @@ function hideTooltip() {
     tooltip.setAttribute('hidden', '');
 }
 
-// Findet Rechenart und Abschnittstyp für ein .text-section-Element,
-// indem es das Element selbst und seine Vorfahren durchsucht.
 function getTooltipInfo(element) {
     let calcType    = null;
     let sectionType = null;
