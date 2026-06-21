@@ -4,7 +4,7 @@ Digitale Edition der arithmetischen Texte aus Wien, ÖNB Cod. 5206, einer spätm
 
 Entstanden im Rahmen des Universitätskurses Webentwicklung, basierend auf Daten des ERC-Projekts *German Arithmetical Treatises in Manuscripts of the Late Middle Ages (1400–1522)* (Universität Graz).
 
-**Live:** [https://sarahmaria101100.github.io/Webentwicklung_Projekt/](https://sarahmaria101100.github.io/Webentwicklung_Projekt/)
+**Live:** (https://sarahmaria101100.github.io/digitale-edition-cod5206/)
 
 ## Was die Website kann
 
