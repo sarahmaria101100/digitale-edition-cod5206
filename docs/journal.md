@@ -29,3 +29,5 @@
 - `js/app.js` nach Professorenfeedback überarbeitet: zwei LLM-Artefakte beseitigt.
   1. Verschachtelte `if`-Abfragen in `findTextNodes` zu einem einzigen `if (... && ...)` zusammengeführt.
   2. Wiederholte `term.toLowerCase()`-Aufrufe eliminiert: `lowerTerm` wird einmalig in `search()` berechnet und als Parameter an `findTextNodes` und `wrapMatch` übergeben.
+- Neues GitHub-Repository erstellt: `digitale-edition-cod5206` (öffentlich, sarahmaria101100).
+- GitHub Pages aktiviert, Seite live unter: https://sarahmaria101100.github.io/digitale-edition-cod5206/
