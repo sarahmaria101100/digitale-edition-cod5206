@@ -4,23 +4,21 @@ const panel = document.getElementById('transcription-panel');
 const input = document.getElementById('search-input');
 
 // Durchsucht den Elementbaum rekursiv nach Textknoten, die den Begriff enthalten.
-function findTextNodes(node, term, results) {
-    if (node.nodeType === Node.TEXT_NODE) {
-        if (node.textContent.toLowerCase().includes(term.toLowerCase())) {
-            results.push(node);
-        }
+function findTextNodes(node, lowerTerm, results) {
+    if (node.nodeType === Node.TEXT_NODE && node.textContent.toLowerCase().includes(lowerTerm)) {
+        results.push(node);
     } else {
         for (const child of [...node.childNodes]) {
-            findTextNodes(child, term, results);
+            findTextNodes(child, lowerTerm, results);
         }
     }
 }
 
 // Ersetzt einen Textknoten durch: Text davor + <mark> + Text danach.
 // Ruft sich selbst rekursiv auf, falls der Begriff mehrmals vorkommt.
-function wrapMatch(textNode, term) {
+function wrapMatch(textNode, term, lowerTerm) {
     const text = textNode.textContent;
-    const index = text.toLowerCase().indexOf(term.toLowerCase());
+    const index = text.toLowerCase().indexOf(lowerTerm);
     if (index === -1) return;
 
     const before = document.createTextNode(text.slice(0, index));
@@ -30,8 +28,8 @@ function wrapMatch(textNode, term) {
 
     textNode.replaceWith(before, mark, after);
 
-    if (after.textContent.toLowerCase().includes(term.toLowerCase())) {
-        wrapMatch(after, term);
+    if (after.textContent.toLowerCase().includes(lowerTerm)) {
+        wrapMatch(after, term, lowerTerm);
     }
 }
 
@@ -48,9 +46,10 @@ function search(term) {
     clearHighlights();
     if (term.length < 2) return;
 
+    const lowerTerm = term.toLowerCase();
     const textNodes = [];
-    findTextNodes(panel, term, textNodes);
-    textNodes.forEach(node => wrapMatch(node, term));
+    findTextNodes(panel, lowerTerm, textNodes);
+    textNodes.forEach(node => wrapMatch(node, term, lowerTerm));
 }
 
 input.addEventListener('input', () => search(input.value.trim()));

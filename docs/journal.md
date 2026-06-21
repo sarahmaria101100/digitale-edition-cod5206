@@ -24,3 +24,8 @@
 - `js/main.js` neu aufgebaut mit allen drei Features: dynamisches XML-Rendering, Diplomatisch/Normalisiert-Toggle, Tooltip-System.
 - Zweite JavaScript-Erweiterung hinzugefügt: Textsuche (`js/app.js`, 57 Zeilen). Suchfeld in `edition.html` eingebunden; Treffer werden mit `<mark>` gelb hervorgehoben; `clearHighlights` + `normalize()` stellen den Text bei neuer Suche wieder her.
 - `vorbereitung_präsentation.md` erstellt: Zeile-für-Zeile-Erklärung von `main.js` und `app.js` auf Deutsch, mit Konzepttabellen für Rückfragen.
+
+## 2026-06-21
+- `js/app.js` nach Professorenfeedback überarbeitet: zwei LLM-Artefakte beseitigt.
+  1. Verschachtelte `if`-Abfragen in `findTextNodes` zu einem einzigen `if (... && ...)` zusammengeführt.
+  2. Wiederholte `term.toLowerCase()`-Aufrufe eliminiert: `lowerTerm` wird einmalig in `search()` berechnet und als Parameter an `findTextNodes` und `wrapMatch` übergeben.

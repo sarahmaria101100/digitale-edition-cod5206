@@ -3,20 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Editionsansicht: Faksimile und Transkription der arithmetischen Texte aus Wien, ÖNB Cod. 5206 mit diplomatischer und normalisierter Darstellung.">
     <title>Edition – Wien, ÖNB Cod. 5206</title>
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="edition-page">
 
+    <a class="skip-link" href="#main-content">Zum Inhalt springen</a>
+
     <header>
-        <nav>
+        <nav aria-label="Seitennavigation">
             <a href="index.html">Startseite</a>
-            <a href="edition.html">Edition</a>
+            <a href="edition.html" aria-current="page">Edition</a>
         </nav>
         <h1>Wien, ÖNB Cod. 5206</h1>
     </header>
 
-    <main>
+    <main id="main-content">
 
         <div id="edition-controls">
 
@@ -32,6 +35,7 @@
             </div>
 
             <div id="search-box">
+                <label for="search-input" class="visually-hidden">In Transkription suchen</label>
                 <input id="search-input" type="search" placeholder="In Transkription suchen …" autocomplete="off">
             </div>
 
@@ -43,18 +47,7 @@
                 <img id="facsimile-image" src="" alt="Faksimile fol. 81r">
             </div>
 
-            <div id="transcription-panel">
-                <!-- Wird per JavaScript aus der TEI-XML-Datei befüllt -->
-                <!-- Jeder <div>-Abschnitt aus dem XML wird hier als Element dargestellt -->
-                <!-- Das data-type-Attribut trägt die Rechenart, data-section den Abschnittstyp -->
-                <!-- Beispiel der späteren Struktur:
-                <div class="text-section" data-type="fraction_calculation" data-section="outline">
-                    <p>Von brochnn stucken ...</p>
-                </div>
-                <div class="text-section" data-type="fraction_calculation" data-section="reckoning_example">
-                    <p>Nu wart was ...</p>
-                </div>
-                -->
+            <div id="transcription-panel" role="region" aria-label="Transkription">
             </div>
 
         </div>
